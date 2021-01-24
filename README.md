@@ -54,16 +54,5 @@ or use (Linux) distribution packages:
 
 ## Usage
 ```
-usage: iDRAC6VirtualConsoleLauncher.py [-h] [-u USER] [-p PASSWD] HOST[:PORT]
-
-iDRAC 6 Virtual Console Launcher
-
-positional arguments:
-  HOST[:PORT]           host running iDRAC 6 [port:5900]
-
-optional arguments:
-  -h, --help            show this help message and exit
-  -u USER, --user USER  iDRAC username [root]
-  -p PASSWD, --passwd PASSWD
-                        iDRAC password [calvin]
+usage: iDRAC6VirtualConsoleLauncher.py
 ```
