@@ -6,7 +6,7 @@
 - an interactive console (safer input for a password)
 - remove another cli args
 
-# Knowledge
+### Knowledge
 
 - if you have a problem with "Pass all keystrokes to server" try to run this script as root
 
