@@ -6,6 +6,10 @@
 - an interactive console (safer input for a password)
 - remove another cli args
 
+# Knowledge
+
+- if you have a problem with "Pass all keystrokes to server" try to run this script as root
+
 ---
 
 # iDRAC 6 Virtual Console Launcher
@@ -37,7 +41,7 @@ iDRAC6VirtualConsoleLauncher
 ├── iDRAC6VirtualConsoleLauncher.py
 ├── jre
 │   ├── bin
-│   │   └── java.exe
+│   │   └── java.exe (java)
 │   └── ...
 |
 ├── requirements.txt
