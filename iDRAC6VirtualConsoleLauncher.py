@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
 
-import argparse
 import zipfile
 import requests
 import io
@@ -10,6 +9,7 @@ import sys
 import urllib3
 import subprocess
 import re
+from getpass import getpass
 
 def get_libraries(url, path):
     response = requests.get(url)
@@ -21,26 +21,24 @@ def get_libraries(url, path):
 
 
 def main():
-    parser = argparse.ArgumentParser(description='iDRAC 6 Virtual Console Launcher')
-    parser.add_argument('-u', '--user', type=str, default='root', action='store', help='iDRAC username [root]')
-    parser.add_argument('-p', '--passwd', type=str, default='calvin', action='store', help='iDRAC password [calvin]')
-    parser.add_argument('host', metavar='HOST[:PORT]', action='store', help='host running iDRAC 6 [port:5900]')
-    args = parser.parse_args()
+    user = input('User: ')
+    passwd = getpass(prompt='Password:')
+    host = input('HOST[:PORT]: ')
 
-    url = urllib3.util.parse_url(args.host)
-    args.host = url.host
+    url = urllib3.util.parse_url(host)
+    host = url.host
     if url.port:
-        args.port = url.port
+        port = url.port
     else:
-        args.port = 5900
+        port = 5900
 
-    avctvm_url = 'http://{0}/software/avctVM{1}.jar'.format(args.host, PLATFORM)
-    avctkvmio_url = 'http://{0}/software/avctKVMIO{1}.jar'.format(args.host, PLATFORM)
-    avctkvm_url = 'http://{0}/software/avctKVM.jar'.format(args.host)
+    avctvm_url = 'http://{0}/software/avctVM{1}.jar'.format(host, PLATFORM)
+    avctkvmio_url = 'http://{0}/software/avctKVMIO{1}.jar'.format(host, PLATFORM)
+    avctkvm_url = 'http://{0}/software/avctKVM.jar'.format(host)
 
     pwd = pathlib.Path(sys.path[0])
     # Hostdir is a striped version of host, because some chars can avoid LD load within java - as example IPv6 address with []
-    hostdir = pwd.joinpath('host_' + re.sub('[^a-zA-Z0-9]+', '', args.host))
+    hostdir = pwd.joinpath('host_' + re.sub('[^a-zA-Z0-9]+', '', host))
     java = pwd.joinpath('jre').joinpath('bin').joinpath('java' + BINARYEX)
 
     libdir = hostdir.joinpath('lib')
@@ -61,15 +59,15 @@ def main():
             'avctKVM.jar',
             '-Djava.library.path={}'.format(libdir),
             'com.avocent.idrac.kvm.Main',
-            'ip={}'.format(args.host),
-            'kmport={}'.format(args.port),
-            'vport={}'.format(args.port),
-            'user={}'.format(args.user),
-            'passwd={}'.format(args.passwd),
+            'ip={}'.format(host),
+            'kmport={}'.format(port),
+            'vport={}'.format(port),
+            'user={}'.format(user),
+            'passwd={}'.format(passwd),
             'apcp=1',
             'version=2',
             'vmprivilege=true',
-            '"helpurl=https://{}/help/contents.html"'.format(args.host)
+            '"helpurl=https://{}/help/contents.html"'.format(host)
         ])
 
 

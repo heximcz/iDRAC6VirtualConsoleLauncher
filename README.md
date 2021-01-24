@@ -1,3 +1,13 @@
+---
+### Fork from [gethvi/iDRAC...](https://github.com/gethvi/iDRAC6VirtualConsoleLauncher)
+
+### Changes
+
+- an interactive console (safer input for a password)
+- remove another cli args
+
+---
+
 # iDRAC 6 Virtual Console Launcher
 Python 3 launcher for iDRAC 6 Virtual Console (including Virtual Media).
 
